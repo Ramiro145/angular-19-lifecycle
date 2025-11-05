@@ -1,4 +1,4 @@
-import { afterNextRender, Component, afterEveryRender, effect } from '@angular/core';
+import { afterNextRender, Component, afterEveryRender, effect, signal } from '@angular/core';
 
 const log = (...messages:string[]) => {
   console.log(
@@ -16,12 +16,28 @@ const log = (...messages:string[]) => {
 })
 export class HomePage {
 
+  traditionalProperty = 'ramiro';
+  signalProperty = signal('ramiro')
+
+
+  changeTraditional(){
+    this.traditionalProperty = 'Ramiro Gonzalez'
+  }
+
+  changeSignal(){
+    this.signalProperty.set('Ramiro Gonzalez');
+  }
 
 
   //! interface de implementacion no necesaria, pero asegura la implementacion de
   //! los eventos del ciclo de vida
   constructor(){
     log('constructor llamado');
+
+    setTimeout(() => {
+      this.signalProperty.set('Juan')
+      this.traditionalProperty = 'Juan'
+    }, 2000);
   }
 
   //? Angular 17
