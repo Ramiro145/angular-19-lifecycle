@@ -1,4 +1,5 @@
 import { afterNextRender, Component, afterEveryRender, effect, signal } from '@angular/core';
+import { Title } from '../../components/title/title';
 
 const log = (...messages:string[]) => {
   console.log(
@@ -11,7 +12,7 @@ const log = (...messages:string[]) => {
 
 @Component({
   selector: 'app-home-page',
-  imports: [],
+  imports: [Title],
   templateUrl: './home-page.html',
 })
 export class HomePage {
@@ -34,10 +35,10 @@ export class HomePage {
   constructor(){
     log('constructor llamado');
 
-    setTimeout(() => {
-      this.signalProperty.set('Juan')
-      this.traditionalProperty = 'Juan'
-    }, 2000);
+    // setTimeout(() => {
+    //   this.signalProperty.set('Juan')
+    //   this.traditionalProperty = 'Juan'
+    // }, 2000);
   }
 
   //? Angular 17
