@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { afterNextRender, Component, afterEveryRender, effect } from '@angular/core';
 
 const log = (...messages:string[]) => {
   console.log(
@@ -16,9 +16,26 @@ const log = (...messages:string[]) => {
 })
 export class HomePage {
 
+
+
+  //! interface de implementacion no necesaria, pero asegura la implementacion de
+  //! los eventos del ciclo de vida
   constructor(){
     log('constructor llamado');
   }
+
+  //? Angular 17
+
+  basicEffect = effect((onCleanup)=>{
+    log('Effect', 'Disparar efectos secundarios');
+
+
+
+    onCleanup(()=>{
+      log('onCleanUp', 'se ejecuta cuando el efecto se va a destruir')
+    })
+  })
+
   ngOnInit(){
     log('ngOnInit');
   }
@@ -42,4 +59,18 @@ export class HomePage {
   }
 
 
+
+  ngOnDestroy(){
+    log('ngOnDestroy', '----------------------------')
+  }
+
+
+
+  afterNextRenderEffect = afterNextRender(()=>{
+    log('afterNextRender')
+  })
+
+  afterEveryRender = afterEveryRender(()=>{
+    log('afterEveryRender')
+  })
 }
